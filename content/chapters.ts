@@ -4,12 +4,14 @@ import type { Chapter } from "./types";
  * The chapters, in the exact order the story should be read.
  * Text is intentionally sparse — the photos and the silence between
  * lines carry the emotion. Required verbatim passages (Doctor, Engineer,
- * Together, Achievement, Final) are preserved word-for-word.
+ * Together, Achievement, Golden Promise, Final) are preserved word-for-word.
+ *
+ * Chapter numbers are derived from array order (see the map at the bottom),
+ * so inserting a new chapter never means renumbering the rest by hand.
  */
-export const chapters: Chapter[] = [
+const orderedChapters: Omit<Chapter, "index">[] = [
   {
     id: "childhood",
-    index: 1,
     emoji: "👶",
     icon: "Baby",
     eyebrow: "Before us",
@@ -30,17 +32,12 @@ export const chapters: Chapter[] = [
   },
   {
     id: "eyes",
-    index: 2,
     emoji: "👀",
     icon: "Eye",
     eyebrow: "A closer look",
     title: "Our Eyes",
     subtitle: "His. Hers. Then — ours.",
-    narrative: [
-      "His eyes.",
-      "Her eyes.",
-      "And the quiet moment they finally met.",
-    ],
+    narrative: ["His eyes.", "Her eyes.", "And the quiet moment they finally met."],
     mood: {
       gradient: "from-navy-950 via-navy-900 to-black",
       accent: "#6b7dfb",
@@ -51,7 +48,6 @@ export const chapters: Chapter[] = [
   },
   {
     id: "beginning",
-    index: 3,
     emoji: "🤍",
     icon: "Sparkle",
     eyebrow: "24 August 2023",
@@ -72,7 +68,6 @@ export const chapters: Chapter[] = [
   },
   {
     id: "first-picture",
-    index: 4,
     emoji: "📸",
     icon: "Camera",
     eyebrow: "The very first frame",
@@ -93,7 +88,6 @@ export const chapters: Chapter[] = [
   },
   {
     id: "everyday",
-    index: 5,
     emoji: "🌸",
     icon: "Flower2",
     eyebrow: "The ordinary magic",
@@ -114,7 +108,6 @@ export const chapters: Chapter[] = [
   },
   {
     id: "trips",
-    index: 6,
     emoji: "🌊",
     icon: "Waves",
     eyebrow: "Places we wandered",
@@ -135,7 +128,6 @@ export const chapters: Chapter[] = [
   },
   {
     id: "ramadan",
-    index: 7,
     emoji: "🌙",
     icon: "Moon",
     eyebrow: "Blessed nights",
@@ -156,7 +148,6 @@ export const chapters: Chapter[] = [
   },
   {
     id: "gifts",
-    index: 8,
     emoji: "🎁",
     icon: "Gift",
     eyebrow: "Little treasures",
@@ -176,8 +167,27 @@ export const chapters: Chapter[] = [
     inMenu: true,
   },
   {
+    id: "golden-promise",
+    emoji: "💍",
+    icon: "Gem",
+    eyebrow: "A promise in gold",
+    title: "Our First Golden Promise",
+    subtitle: "The first gift of forever.",
+    narrative: [
+      "The first gold Boody ever gave Manonty — a deep green stone, haloed in light, on a chain of warm gold.",
+      "Gold has value because it lasts. But this gift became priceless because of the love behind it.",
+      "It wasn't just the first piece of gold. It was the first promise I could hold in my hands.",
+    ],
+    mood: {
+      gradient: "from-black via-navy-950 to-chocolate-900",
+      accent: "#cfa24e",
+      scheme: "dark",
+    },
+    slots: 0,
+    inMenu: true,
+  },
+  {
     id: "love",
-    index: 9,
     emoji: "💌",
     icon: "Mail",
     eyebrow: "In our own words",
@@ -198,7 +208,6 @@ export const chapters: Chapter[] = [
   },
   {
     id: "doctor",
-    index: 10,
     emoji: "👩🏻‍⚕️",
     icon: "Stethoscope",
     eyebrow: "Manonty",
@@ -219,7 +228,6 @@ export const chapters: Chapter[] = [
   },
   {
     id: "engineer",
-    index: 11,
     emoji: "👷🏻‍♂️",
     icon: "Ruler",
     eyebrow: "Boody",
@@ -240,7 +248,6 @@ export const chapters: Chapter[] = [
   },
   {
     id: "together",
-    index: 12,
     emoji: "🤝",
     icon: "HeartHandshake",
     eyebrow: "Two worlds, one design",
@@ -261,7 +268,6 @@ export const chapters: Chapter[] = [
   },
   {
     id: "achievement",
-    index: 13,
     emoji: "🎓",
     icon: "GraduationCap",
     eyebrow: "American Diploma · Mathematics",
@@ -282,7 +288,6 @@ export const chapters: Chapter[] = [
   },
   {
     id: "dictionary",
-    index: 14,
     emoji: "📖",
     icon: "BookHeart",
     eyebrow: "A language of two",
@@ -302,7 +307,6 @@ export const chapters: Chapter[] = [
   },
   {
     id: "journey",
-    index: 15,
     emoji: "❤️",
     icon: "Route",
     eyebrow: "Milestone by milestone",
@@ -322,7 +326,6 @@ export const chapters: Chapter[] = [
   },
   {
     id: "today",
-    index: 16,
     emoji: "✨",
     icon: "Sun",
     eyebrow: "Right now",
@@ -342,6 +345,12 @@ export const chapters: Chapter[] = [
     inMenu: true,
   },
 ];
+
+/** Chapter numbers are assigned from order — insert anywhere, no renumbering. */
+export const chapters: Chapter[] = orderedChapters.map((c, i) => ({
+  ...c,
+  index: i + 1,
+}));
 
 export const chapterById = Object.fromEntries(
   chapters.map((c) => [c.id, c]),

@@ -150,7 +150,8 @@ export function Prelude() {
           <SplitText
             as="h2"
             text="24 August 2023"
-            className="text-gradient-blue font-display text-5xl font-semibold tracking-tight sm:text-8xl"
+            className="font-display text-5xl font-semibold tracking-tight sm:text-8xl"
+            wordClassName="text-gradient-blue"
             stagger={0.14}
           />
 

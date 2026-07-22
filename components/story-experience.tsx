@@ -21,6 +21,7 @@ import { LoveCounter } from "@/components/sections/love-counter";
 import { ChapterSection } from "@/components/sections/chapter-section";
 import { EyesChapter } from "@/components/sections/eyes";
 import { GiftsSection } from "@/components/sections/gifts";
+import { GoldenPromise } from "@/components/sections/golden-promise";
 import { DoctorChapter } from "@/components/sections/doctor";
 import { EngineerChapter } from "@/components/sections/engineer";
 import { TogetherSection } from "@/components/sections/together";
@@ -105,6 +106,7 @@ export function StoryExperience() {
             <Standard id="trips" />
             <Standard id="ramadan" />
             <GiftsSection />
+            <GoldenPromise />
             <Standard id="love" />
 
             <DoctorChapter />

@@ -60,11 +60,12 @@ export const milestones: Milestone[] = [
   {
     id: "gold-gift",
     when: "A glowing moment",
-    title: "The first gold gift",
-    detail: "Chosen slowly, given with a heart that was paying attention.",
+    title: "Our first golden promise",
+    detail: "The first gift of forever — a green stone set in warm gold.",
     icon: "Gem",
-    emoji: "🎁",
-    chapter: "gifts",
+    emoji: "💍",
+    chapter: "golden-promise",
+    highlight: true,
   },
   {
     id: "ramadan",

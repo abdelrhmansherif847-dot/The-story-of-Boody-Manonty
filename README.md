@@ -16,14 +16,16 @@ This is not a photo gallery. It's a museum of one love story.
 
 - **Cinematic password gate** — the door to the story (`24/8/2023`).
 - **Live love counter** — counting every second since 24 August 2023.
-- **16 chapters**, each with its own colour-mood, narration and gallery.
+- **17 chapters**, each with its own colour-mood, narration and gallery.
+- **Our First Golden Promise** — a cinematic, jewellery-boutique chapter for the
+  first gold gift: dark gold-lit stage, glass reflection, slow zoom, and gold dust.
 - **Special chapters** for Manonty (a calm, white-and-blue medical world with a
   living heartbeat) and Boody (a self-drawing architectural blueprint).
 - **“Together”** — a GSAP scroll sequence where a blueprint dissolves into a
   heartbeat, and the heartbeat becomes a heart.
 - **Animated SAT / American Diploma score cards** (770 & 780) with count-up rings.
 - **Our Dictionary** — flip cards for the couple's private words (Arabic + English).
-- **Interactive timeline**, **treasure box**, **first gold gift**, **quote spotlight**,
+- **Interactive timeline**, **treasure box**, **quote spotlight**,
   **anniversary countdown**, and a hushed **final scene**.
 - **Memory search**, **chapter menu**, **dark / light mode**, **private mode**
   (blur all photos), a **music player** ready for a future track, and a couple of

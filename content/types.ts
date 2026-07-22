@@ -27,6 +27,7 @@ export type ChapterId =
   | "trips"
   | "ramadan"
   | "gifts"
+  | "golden-promise"
   | "love"
   | "doctor"
   | "engineer"

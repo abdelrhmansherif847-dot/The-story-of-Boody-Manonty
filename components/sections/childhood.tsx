@@ -94,6 +94,7 @@ const BOODY: Frame[] = [
   { src: "boody-toddler.jpg", alt: "Boody as a toddler in a studio portrait.", w: 439, h: 1280, caption: "the very beginning", tilt: -2 },
   { src: "boody-studio.jpg", alt: "Boody as a small boy, a kindergarten portrait.", w: 856, h: 1280, tilt: 2, kenBurns: true },
   { src: "boody-young.jpg", alt: "Boody beside an ornate marble fountain.", w: 512, h: 720, caption: "a boy full of questions", tilt: -2 },
+  { src: "boody-smile.jpg", alt: "Boody as a small boy with a big toothless grin.", w: 865, h: 1244, caption: "that smile", tilt: 2, kenBurns: true },
   { src: "boody-istanbul.jpg", alt: "Boody smiling in an İstanbul t-shirt.", w: 270, h: 532, tilt: 3 },
   { src: "boody-plaid.jpg", alt: "Boody a little older, in a red plaid shirt.", w: 1089, h: 608, tilt: -2 },
   { src: "boody-sea.jpg", alt: "Boody by the Bosphorus, the bridge behind him.", w: 376, h: 1230, caption: "by the Bosphorus", tilt: 2 },

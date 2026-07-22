@@ -24,6 +24,7 @@ export type ChapterId =
   | "beginning"
   | "first-picture"
   | "everyday"
+  | "hand-in-hand"
   | "trips"
   | "ramadan"
   | "gifts"

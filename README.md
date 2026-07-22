@@ -16,9 +16,11 @@ This is not a photo gallery. It's a museum of one love story.
 
 - **Cinematic password gate** — the door to the story (`24/8/2023`).
 - **Live love counter** — counting every second since 24 August 2023.
-- **17 chapters**, each with its own colour-mood, narration and gallery.
+- **18 chapters**, each with its own colour-mood, narration and gallery.
 - **Our First Golden Promise** — a cinematic, jewellery-boutique chapter for the
   first gold gift: dark gold-lit stage, glass reflection, slow zoom, and gold dust.
+- **Hand in Hand** — an intimate chapter about connection (matching bracelets,
+  two spoons that make a heart): warm-lit cinematic frames, slow zoom, reflections.
 - **Special chapters** for Manonty (a calm, white-and-blue medical world with a
   living heartbeat) and Boody (a self-drawing architectural blueprint).
 - **“Together”** — a GSAP scroll sequence where a blueprint dissolves into a

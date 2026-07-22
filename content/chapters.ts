@@ -107,6 +107,26 @@ const orderedChapters: Omit<Chapter, "index">[] = [
     inMenu: true,
   },
   {
+    id: "hand-in-hand",
+    emoji: "🤝",
+    icon: "Hand",
+    eyebrow: "Connection",
+    title: "Hand in Hand",
+    subtitle: "Not about objects — about connection.",
+    narrative: [
+      "Before forever became a promise, it began with a simple touch.",
+      "Two wrists wearing the same beads. Two spoons that somehow made a heart.",
+      "Every hand tells a story of trust, comfort, support — and love.",
+    ],
+    mood: {
+      gradient: "from-chocolate-900 via-navy-950 to-black",
+      accent: "#d8a24e",
+      scheme: "dark",
+    },
+    slots: 0,
+    inMenu: true,
+  },
+  {
     id: "trips",
     emoji: "🌊",
     icon: "Waves",

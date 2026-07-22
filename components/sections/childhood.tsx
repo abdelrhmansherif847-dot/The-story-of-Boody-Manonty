@@ -22,35 +22,25 @@ type Frame = {
   caption?: string;
   tilt?: number;
   kenBurns?: boolean;
-  className?: string;
 };
 
 /**
  * A vintage photograph print: a warm cream mat, sepia grade, vignette + grain,
  * a slow ken-burns "camera move" on hero frames, and a gentle scatter tilt.
+ * Intrinsic sizing lets the frames flow naturally in a masonry column.
  */
-function VintageFrame({
-  src,
-  alt,
-  w,
-  h,
-  caption,
-  tilt = 0,
-  kenBurns = false,
-  className,
-}: Frame) {
+function VintageFrame({ src, alt, w, h, caption, tilt = 0, kenBurns = false }: Frame) {
   const reduced = usePrefersReducedMotion();
   return (
     <motion.figure
       initial={{ opacity: 0, y: 26, rotate: tilt * 0.4 }}
       whileInView={{ opacity: 1, y: 0, rotate: tilt }}
       whileHover={{ scale: 1.04, rotate: tilt * 0.5, zIndex: 5 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "relative bg-warm-50 p-2.5 shadow-[0_24px_54px_-26px_rgba(60,40,20,0.6)]",
+        "relative mb-4 break-inside-avoid bg-warm-50 p-2.5 shadow-[0_24px_54px_-26px_rgba(60,40,20,0.6)] sm:mb-6",
         caption ? "pb-9" : "",
-        className,
       )}
     >
       <div className="relative overflow-hidden">
@@ -64,7 +54,7 @@ function VintageFrame({
             alt={alt}
             width={w}
             height={h}
-            sizes="(max-width: 640px) 70vw, 22rem"
+            sizes="(max-width: 640px) 44vw, 28vw"
             className="block h-auto w-full object-cover"
             style={{ filter: SEPIA }}
           />
@@ -99,18 +89,37 @@ function Hand({ children, className }: { children: React.ReactNode; className?: 
   return <span className={cn("font-script text-chocolate-500", className)}>{children}</span>;
 }
 
-// ── Three photographs each — a small, curated progression ───────
+// ── Every childhood photograph, told as a memory wall ───────────
 const BOODY: Frame[] = [
-  { src: "boody-toddler.jpg", alt: "Boody as a toddler in a studio portrait.", w: 439, h: 1280, caption: "the very beginning", tilt: -3, className: "w-40 sm:w-44" },
-  { src: "boody-young.jpg", alt: "Boody as a boy beside an ornate marble fountain.", w: 512, h: 720, caption: "a boy full of questions", tilt: 2, kenBurns: true, className: "w-56 sm:w-64" },
-  { src: "boody-sea.jpg", alt: "Boody by the Bosphorus, the bridge behind him.", w: 376, h: 1230, caption: "by the Bosphorus", tilt: -2, className: "w-40 sm:w-44" },
+  { src: "boody-toddler.jpg", alt: "Boody as a toddler in a studio portrait.", w: 439, h: 1280, caption: "the very beginning", tilt: -2 },
+  { src: "boody-studio.jpg", alt: "Boody as a small boy, a kindergarten portrait.", w: 856, h: 1280, tilt: 2, kenBurns: true },
+  { src: "boody-young.jpg", alt: "Boody beside an ornate marble fountain.", w: 512, h: 720, caption: "a boy full of questions", tilt: -2 },
+  { src: "boody-istanbul.jpg", alt: "Boody smiling in an İstanbul t-shirt.", w: 270, h: 532, tilt: 3 },
+  { src: "boody-plaid.jpg", alt: "Boody a little older, in a red plaid shirt.", w: 1089, h: 608, tilt: -2 },
+  { src: "boody-sea.jpg", alt: "Boody by the Bosphorus, the bridge behind him.", w: 376, h: 1230, caption: "by the Bosphorus", tilt: 2 },
 ];
 
 const MANONTY: Frame[] = [
-  { src: "manonty-swing.jpg", alt: "Manonty as a toddler on a swing.", w: 460, h: 714, caption: "the very beginning", tilt: 3, className: "w-44 sm:w-48" },
-  { src: "manonty-pink.jpg", alt: "Manonty as a little girl with a joyful smile.", w: 1080, h: 1060, caption: "bright eyes, big heart", tilt: -2, kenBurns: true, className: "w-56 sm:w-64" },
-  { src: "manonty-teen.jpg", alt: "Manonty, growing up gentle.", w: 350, h: 662, caption: "growing up gentle", tilt: 2, className: "w-40 sm:w-44" },
+  { src: "manonty-swing.jpg", alt: "Manonty as a toddler on a swing.", w: 460, h: 714, caption: "the very beginning", tilt: 3 },
+  { src: "manonty-loryage.jpg", alt: "Manonty as a little girl with pigtails.", w: 930, h: 1016, tilt: -2 },
+  { src: "manonty-pink.jpg", alt: "Manonty as a little girl with a joyful smile.", w: 1080, h: 1060, caption: "bright eyes, big heart", tilt: 2, kenBurns: true },
+  { src: "manonty-child.jpg", alt: "Manonty, a treasured old portrait.", w: 468, h: 559, tilt: -3 },
+  { src: "manonty-glasses.jpg", alt: "Manonty, a little older.", w: 480, h: 479, tilt: 2 },
+  { src: "manonty-teen.jpg", alt: "Manonty, growing up gentle.", w: 350, h: 662, caption: "growing up gentle", tilt: -2 },
+  { src: "manonty-1.jpg", alt: "Manonty, a little older.", w: 919, h: 1158, tilt: 2 },
+  { src: "manonty-green.jpg", alt: "Manonty, a bright smile held back.", w: 678, h: 1358, tilt: -2 },
+  { src: "manonty-red.jpg", alt: "Manonty, growing up.", w: 702, h: 913, tilt: 3 },
 ];
+
+function Gallery({ frames }: { frames: Frame[] }) {
+  return (
+    <div className="columns-2 gap-4 sm:columns-3 sm:gap-6">
+      {frames.map((f) => (
+        <VintageFrame key={f.src} {...f} src={`${DIR}/${f.src}`} />
+      ))}
+    </div>
+  );
+}
 
 /** Before We Knew Each Other — the nostalgic opening scene of the story. */
 export function ChildhoodChapter() {
@@ -146,20 +155,16 @@ export function ChildhoodChapter() {
         </div>
 
         {/* Boody */}
-        <div className="mx-auto mt-24 max-w-4xl">
+        <div className="mx-auto mt-24 max-w-5xl">
           <Reveal>
-            <div className="mb-12 text-center sm:text-left">
+            <div className="mb-10 text-center sm:text-left">
               <Hand className="text-3xl sm:text-4xl">Boody</Hand>
               <p className="eyebrow mt-2 text-chocolate-500">His beginning · a boy growing up in Istanbul</p>
             </div>
           </Reveal>
-          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-10">
-            {BOODY.map((f) => (
-              <VintageFrame key={f.src} {...f} src={`${DIR}/${f.src}`} />
-            ))}
-          </div>
+          <Gallery frames={BOODY} />
           <Reveal delay={0.1}>
-            <p className="mx-auto mt-12 max-w-xl text-center font-serif text-xl italic text-chocolate-700">
+            <p className="mx-auto mt-10 max-w-xl text-center font-serif text-xl italic text-chocolate-700">
               A curly-haired boy by the Bosphorus — chasing the sea breeze,
               already dreaming of building things that last.
             </p>
@@ -167,20 +172,16 @@ export function ChildhoodChapter() {
         </div>
 
         {/* Manonty */}
-        <div className="mx-auto mt-28 max-w-4xl">
+        <div className="mx-auto mt-28 max-w-5xl">
           <Reveal>
-            <div className="mb-12 text-center sm:text-right">
+            <div className="mb-10 text-center sm:text-right">
               <Hand className="text-3xl sm:text-4xl">Manonty</Hand>
               <p className="eyebrow mt-2 text-chocolate-500">Her beginning · a little girl with a gentle heart</p>
             </div>
           </Reveal>
-          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-10">
-            {MANONTY.map((f) => (
-              <VintageFrame key={f.src} {...f} src={`${DIR}/${f.src}`} />
-            ))}
-          </div>
+          <Gallery frames={MANONTY} />
           <Reveal delay={0.1}>
-            <p className="mx-auto mt-12 max-w-xl text-center font-serif text-xl italic text-chocolate-700">
+            <p className="mx-auto mt-10 max-w-xl text-center font-serif text-xl italic text-chocolate-700">
               A little girl with bright eyes and a gentle heart — who would grow
               up to heal people, and one heart in particular.
             </p>
@@ -239,9 +240,7 @@ export function ChildhoodChapter() {
 
           <Reveal delay={0.1}>
             <blockquote className="mt-16">
-              <p className="font-script text-3xl text-chocolate-500 sm:text-4xl">
-                Every memory before us…
-              </p>
+              <p className="font-script text-3xl text-chocolate-500 sm:text-4xl">Every memory before us…</p>
               <p className="mt-2 font-display text-3xl font-semibold text-chocolate-900 sm:text-5xl">
                 was quietly leading us to each other.
               </p>

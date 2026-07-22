@@ -12,72 +12,69 @@ import { Reveal } from "@/components/effects/reveal";
 const chapter = chapterById.childhood;
 const DIR = "/media/childhood";
 
-type FrameProps = {
+const SEPIA = "sepia(0.34) saturate(0.88) contrast(1.04) brightness(1.03)";
+
+type Frame = {
   src: string;
   alt: string;
-  ratio: string; // "width / height"
+  w: number;
+  h: number;
   caption?: string;
   tilt?: number;
   kenBurns?: boolean;
-  circle?: boolean;
-  className?: string;
 };
 
 /**
- * A vintage photograph: a warm print with a soft cream mat, gently graded to
- * sepia, finished with grain and a vignette, and (optionally) drifting with a
- * slow ken-burns "camera move". Aspect matches the photo so nothing is cropped.
+ * A vintage photograph print: a warm cream mat, sepia grade, vignette + grain,
+ * a slow ken-burns "camera move" on hero frames, and a gentle scatter tilt.
+ * Uses intrinsic sizing so the frames flow naturally in a masonry.
  */
 function VintageFrame({
   src,
   alt,
-  ratio,
+  w,
+  h,
   caption,
   tilt = 0,
   kenBurns = false,
-  circle = false,
   className,
-}: FrameProps) {
+}: Frame & { className?: string }) {
   const reduced = usePrefersReducedMotion();
-
   return (
     <motion.figure
-      initial={{ opacity: 0, y: 30, rotate: tilt * 0.4 }}
+      initial={{ opacity: 0, y: 26, rotate: tilt * 0.4 }}
       whileInView={{ opacity: 1, y: 0, rotate: tilt }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ scale: 1.03, rotate: tilt * 0.5, zIndex: 5 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "relative bg-warm-50 shadow-[0_26px_60px_-28px_rgba(60,40,20,0.6)]",
-        circle ? "rounded-full p-2" : "rounded-[3px] p-2.5",
-        caption && !circle ? "pb-9" : "",
+        "relative bg-warm-50 p-2.5 shadow-[0_24px_54px_-26px_rgba(60,40,20,0.6)]",
+        caption ? "pb-9" : "",
         className,
       )}
     >
-      <div
-        className={cn("relative overflow-hidden", circle ? "rounded-full" : "rounded-[1px]")}
-        style={{ aspectRatio: ratio }}
-      >
+      <div className="relative overflow-hidden">
         <motion.div
-          className="absolute inset-0"
+          className="relative"
           animate={kenBurns && !reduced ? { scale: [1.04, 1.12] } : {}}
           transition={{ duration: 18, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
         >
           <Image
             src={src}
             alt={alt}
-            fill
-            sizes="(max-width: 640px) 80vw, 30rem"
-            className="object-cover"
-            style={{ filter: "sepia(0.36) saturate(0.86) contrast(1.04) brightness(1.03)" }}
+            width={w}
+            height={h}
+            sizes="(max-width: 640px) 44vw, 22rem"
+            className="block h-auto w-full object-cover"
+            style={{ filter: SEPIA }}
           />
         </motion.div>
-        {/* warm wash, vignette, grain */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-amber-900/20 via-transparent to-amber-100/10 mix-blend-multiply" />
-        <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_46px_rgba(70,45,18,0.5)]" />
+        <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_44px_rgba(70,45,18,0.5)]" />
         <div className="pointer-events-none absolute inset-0 grain-overlay opacity-40" />
       </div>
-      {caption && !circle && (
-        <figcaption className="absolute inset-x-0 bottom-2 text-center font-script text-xl text-chocolate-700">
+      {caption && (
+        <figcaption className="absolute inset-x-0 bottom-2 text-center font-script text-lg text-chocolate-700">
           {caption}
         </figcaption>
       )}
@@ -85,12 +82,38 @@ function VintageFrame({
   );
 }
 
-/** A small handwritten label. */
-function Hand({ children, className }: { children: React.ReactNode; className?: string }) {
+/** Circular vintage portrait, for the closing convergence. */
+function CirclePortrait({ src, alt, className }: { src: string; alt: string; className?: string }) {
   return (
-    <span className={cn("font-script text-chocolate-500", className)}>{children}</span>
+    <figure className={cn("relative rounded-full bg-warm-50 p-2 shadow-[0_20px_44px_-22px_rgba(60,40,20,0.7)]", className)}>
+      <div className="relative aspect-square w-full overflow-hidden rounded-full">
+        <Image src={src} alt={alt} fill sizes="9rem" className="object-cover" style={{ filter: SEPIA }} />
+        <div className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_0_30px_rgba(70,45,18,0.5)]" />
+        <div className="pointer-events-none absolute inset-0 rounded-full grain-overlay opacity-40" />
+      </div>
+    </figure>
   );
 }
+
+function Hand({ children, className }: { children: React.ReactNode; className?: string }) {
+  return <span className={cn("font-script text-chocolate-500", className)}>{children}</span>;
+}
+
+// ── The collages ───────────────────────────────────────────────
+const BOODY: Frame[] = [
+  { src: "boody-toddler.jpg", alt: "Boody as a toddler in a studio portrait.", w: 439, h: 1280, caption: "the very beginning", tilt: -3 },
+  { src: "boody-studio.jpg", alt: "Boody as a small boy, a kindergarten portrait.", w: 856, h: 1280, tilt: 2, kenBurns: true },
+  { src: "boody-young.jpg", alt: "Boody by an ornate marble fountain.", w: 512, h: 720, caption: "a boy full of questions", tilt: -2 },
+  { src: "boody-istanbul.jpg", alt: "Boody smiling in an İstanbul t-shirt.", w: 270, h: 532, tilt: 3 },
+  { src: "boody-plaid.jpg", alt: "Boody a little older, in a red plaid shirt.", w: 1089, h: 608, tilt: -2 },
+  { src: "boody-sea.jpg", alt: "Boody by the Bosphorus, the bridge behind him.", w: 376, h: 1230, caption: "by the Bosphorus", tilt: 2 },
+];
+
+const MANONTY_GROWN: Frame[] = [
+  { src: "manonty-1.jpg", alt: "Manonty, a little older.", w: 919, h: 1158, tilt: -2 },
+  { src: "manonty-red.jpg", alt: "Manonty growing up.", w: 702, h: 913, tilt: 2 },
+  { src: "manonty-green.jpg", alt: "Manonty, a bright smile held back.", w: 678, h: 1358, tilt: -3 },
+];
 
 /** Before We Knew Each Other — the nostalgic opening scene of the story. */
 export function ChildhoodChapter() {
@@ -99,7 +122,6 @@ export function ChildhoodChapter() {
       id={chapter.id}
       className="relative overflow-hidden bg-gradient-to-b from-warm-100 via-[#f4e7d0] to-warm-100 py-24 text-chocolate-900 md:py-36"
     >
-      {/* golden light blooms + dust + grain */}
       <div
         aria-hidden
         className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(214,170,90,0.35),transparent),radial-gradient(50%_40%_at_80%_80%,rgba(214,170,90,0.22),transparent)]"
@@ -108,7 +130,7 @@ export function ChildhoodChapter() {
       <Particles quantity={34} color="170, 128, 66" maxRadius={2.2} />
 
       <div className="container relative">
-        {/* ── Title ── */}
+        {/* Title */}
         <div className="mx-auto max-w-3xl text-center">
           <Reveal>
             <Hand className="text-2xl sm:text-3xl">{chapter.eyebrow}…</Hand>
@@ -126,75 +148,51 @@ export function ChildhoodChapter() {
           </Reveal>
         </div>
 
-        {/* ── Boody's childhood ── */}
-        <div className="mx-auto mt-24 max-w-4xl">
+        {/* Boody */}
+        <div className="mx-auto mt-24 max-w-5xl">
           <Reveal>
             <div className="mb-10 text-center sm:text-left">
               <Hand className="text-3xl sm:text-4xl">Boody</Hand>
-              <p className="eyebrow mt-2 text-chocolate-500">His beginning</p>
+              <p className="eyebrow mt-2 text-chocolate-500">His beginning · a boy growing up in Istanbul</p>
             </div>
           </Reveal>
-
-          <div className="flex flex-col items-center justify-center gap-8 sm:flex-row sm:items-end sm:gap-10">
-            <VintageFrame
-              src={`${DIR}/boody-young.jpg`}
-              alt="Boody as a small boy beside an ornate marble fountain."
-              ratio="512 / 720"
-              caption="a boy full of questions"
-              tilt={-3}
-              kenBurns
-              className="w-56 sm:w-64"
-            />
-            <VintageFrame
-              src={`${DIR}/boody-sea.jpg`}
-              alt="Boody as a boy by the Bosphorus, the bridge behind him."
-              ratio="376 / 1230"
-              tilt={2.5}
-              className="w-40 sm:w-44"
-            />
+          <div className="columns-2 gap-4 sm:columns-3 sm:gap-6">
+            {BOODY.map((f) => (
+              <VintageFrame key={f.src} {...f} src={`${DIR}/${f.src}`} className="mb-4 break-inside-avoid sm:mb-6" />
+            ))}
           </div>
           <Reveal delay={0.1}>
-            <p className="mx-auto mt-10 max-w-xl text-center font-serif text-xl italic text-chocolate-700">
+            <p className="mx-auto mt-8 max-w-xl text-center font-serif text-xl italic text-chocolate-700">
               A curly-haired boy by the Bosphorus — chasing the sea breeze,
               already dreaming of building things that last.
             </p>
           </Reveal>
         </div>
 
-        {/* ── Manonty's childhood ── */}
-        <div className="mx-auto mt-28 max-w-4xl">
+        {/* Manonty */}
+        <div className="mx-auto mt-28 max-w-5xl">
           <Reveal>
             <div className="mb-10 text-center sm:text-right">
               <Hand className="text-3xl sm:text-4xl">Manonty</Hand>
-              <p className="eyebrow mt-2 text-chocolate-500">Her beginning</p>
+              <p className="eyebrow mt-2 text-chocolate-500">Her beginning · a little girl with a gentle heart</p>
             </div>
           </Reveal>
 
-          <div className="flex flex-col items-center justify-center gap-8 sm:flex-row sm:items-start sm:gap-10">
+          <div className="flex flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-center">
             <VintageFrame
               src={`${DIR}/manonty-child.jpg`}
               alt="Manonty as a little girl, a treasured old portrait."
-              ratio="468 / 559"
+              w={468}
+              h={559}
               caption="bright eyes, big heart"
               tilt={3}
               kenBurns
-              className="w-56 sm:w-64"
+              className="w-64 shrink-0 sm:w-72"
             />
-            <div className="flex gap-6">
-              <VintageFrame
-                src={`${DIR}/manonty-1.jpg`}
-                alt="Manonty, a little older."
-                ratio="919 / 1158"
-                tilt={-2}
-                className="w-36 sm:w-40"
-              />
-              <VintageFrame
-                src={`${DIR}/manonty-2.jpg`}
-                alt="Manonty, growing up."
-                ratio="792 / 1125"
-                tilt={2}
-                className="mt-8 w-36 sm:w-40"
-              />
+            <div className="columns-2 gap-4 sm:gap-6 lg:max-w-md">
+              {MANONTY_GROWN.map((f) => (
+                <VintageFrame key={f.src} {...f} src={`${DIR}/${f.src}`} className="mb-4 break-inside-avoid sm:mb-6" />
+              ))}
             </div>
           </div>
           <Reveal delay={0.1}>
@@ -205,12 +203,11 @@ export function ChildhoodChapter() {
           </Reveal>
         </div>
 
-        {/* ── The convergence ── */}
+        {/* The convergence */}
         <div className="mx-auto mt-28 max-w-3xl text-center">
           <Reveal>
             <Hand className="text-2xl sm:text-3xl">Two children. The same sky.</Hand>
           </Reveal>
-
           <div className="relative mt-10 flex items-center justify-center gap-6 sm:gap-16">
             <motion.div
               initial={{ x: -40, opacity: 0, rotate: -6 }}
@@ -218,16 +215,9 @@ export function ChildhoodChapter() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             >
-              <VintageFrame
-                src={`${DIR}/boody-young.jpg`}
-                alt="Young Boody."
-                ratio="1 / 1"
-                circle
-                className="w-24 sm:w-32"
-              />
+              <CirclePortrait src={`${DIR}/boody-young.jpg`} alt="Young Boody." className="w-24 sm:w-32" />
             </motion.div>
 
-            {/* connecting light */}
             <div className="relative flex flex-1 items-center justify-center">
               <motion.div
                 initial={{ scaleX: 0, opacity: 0 }}
@@ -253,13 +243,7 @@ export function ChildhoodChapter() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             >
-              <VintageFrame
-                src={`${DIR}/manonty-child.jpg`}
-                alt="Young Manonty."
-                ratio="1 / 1"
-                circle
-                className="w-24 sm:w-32"
-              />
+              <CirclePortrait src={`${DIR}/manonty-child.jpg`} alt="Young Manonty." className="w-24 sm:w-32" />
             </motion.div>
           </div>
 
@@ -269,7 +253,6 @@ export function ChildhoodChapter() {
             </p>
           </Reveal>
 
-          {/* Ending quote */}
           <Reveal delay={0.1}>
             <blockquote className="mt-16">
               <p className="font-script text-3xl text-chocolate-500 sm:text-4xl">

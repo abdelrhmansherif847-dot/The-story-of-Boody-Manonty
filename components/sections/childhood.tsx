@@ -107,9 +107,9 @@ const BOODY: Frame[] = [
 ];
 
 const MANONTY: Frame[] = [
-  { src: "manonty-child.jpg", alt: "Manonty as a little girl, a treasured old portrait.", w: 468, h: 559, caption: "bright eyes, big heart", tilt: 3, kenBurns: true, className: "w-56 sm:w-64" },
-  { src: "manonty-green.jpg", alt: "Manonty, a little older, a bright smile held back.", w: 678, h: 1358, tilt: -3, className: "w-40 sm:w-44" },
-  { src: "manonty-red.jpg", alt: "Manonty growing up.", w: 702, h: 913, tilt: 2, className: "w-48 sm:w-52" },
+  { src: "manonty-swing.jpg", alt: "Manonty as a toddler on a swing.", w: 460, h: 714, caption: "the very beginning", tilt: 3, className: "w-44 sm:w-48" },
+  { src: "manonty-pink.jpg", alt: "Manonty as a little girl with a joyful smile.", w: 1080, h: 1060, caption: "bright eyes, big heart", tilt: -2, kenBurns: true, className: "w-56 sm:w-64" },
+  { src: "manonty-teen.jpg", alt: "Manonty, growing up gentle.", w: 350, h: 662, caption: "growing up gentle", tilt: 2, className: "w-40 sm:w-44" },
 ];
 
 /** Before We Knew Each Other — the nostalgic opening scene of the story. */

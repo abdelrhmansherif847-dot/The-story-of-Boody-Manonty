@@ -17,6 +17,8 @@ const DIR = "/media/eyes";
 // float, lit from within.
 const EYE_MASK =
   "radial-gradient(ellipse 74% 70% at 50% 46%, #000 38%, rgba(0,0,0,0.35) 62%, transparent 82%)";
+const MACRO_MASK =
+  "radial-gradient(circle at 50% 50%, #000 46%, rgba(0,0,0,0.4) 66%, transparent 84%)";
 
 /** A single eye, floating in the dark, with a slow cinematic zoom. */
 function EyeFrame({
@@ -25,12 +27,14 @@ function EyeFrame({
   focus = "50% 46%",
   className,
   zoom = true,
+  mask = EYE_MASK,
 }: {
   src: string;
   alt: string;
   focus?: string;
   className?: string;
   zoom?: boolean;
+  mask?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
@@ -46,11 +50,7 @@ function EyeFrame({
           fill
           sizes="(max-width: 640px) 92vw, 42rem"
           className="object-cover"
-          style={{
-            objectPosition: focus,
-            maskImage: EYE_MASK,
-            WebkitMaskImage: EYE_MASK,
-          }}
+          style={{ objectPosition: focus, maskImage: mask, WebkitMaskImage: mask }}
         />
       </motion.div>
     </div>
@@ -66,6 +66,17 @@ function Label({ children }: { children: React.ReactNode }) {
     </Reveal>
   );
 }
+
+// Every other glimpse of Manonty's eyes.
+const HER_EYES = [
+  { src: "manonty-eye-1.jpg", focus: "46% 38%" },
+  { src: "manonty-eye-2.jpg", focus: "50% 50%" },
+  { src: "manonty-eye-3.jpg", focus: "46% 46%" },
+  { src: "manonty-eye-5.jpg", focus: "50% 50%" },
+  { src: "manonty-eye-6.jpg", focus: "50% 50%" },
+  { src: "manonty-eye-7.jpg", focus: "50% 48%" },
+  { src: "manonty-eye-8.jpg", focus: "50% 45%" },
+];
 
 /** Our Eyes — a hushed, mysterious interlude where the eyes speak first. */
 export function EyesChapter() {
@@ -101,45 +112,47 @@ export function EyesChapter() {
           </Reveal>
         </div>
 
-        {/* His eyes */}
-        <div className="mt-24 flex flex-col items-center gap-6">
+        {/* His eyes — two dramatic macros */}
+        <div className="mt-24 flex flex-col items-center gap-8">
           <Label>His eyes</Label>
-          <EyeFrame
-            src={`${DIR}/boody-eye-1.jpg`}
-            alt="A close-up of Boody's eye."
-            focus="50% 48%"
-            className="aspect-[3/2] w-full max-w-2xl"
-          />
-          <EyeFrame
-            src={`${DIR}/boody-eye-2.jpg`}
-            alt="Another close-up of Boody's eye."
-            focus="50% 45%"
-            className="aspect-[3/2] w-full max-w-sm opacity-90"
-          />
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
+            {["eye-macro-1.jpg", "eye-macro-2.jpg"].map((src) => (
+              <div key={src} className="relative">
+                <div
+                  aria-hidden
+                  className="absolute -inset-8 -z-[1] rounded-full bg-[radial-gradient(circle,rgba(107,125,251,0.22),transparent_70%)] blur-2xl"
+                />
+                <EyeFrame
+                  src={`${DIR}/${src}`}
+                  alt="A macro close-up of Boody's eye."
+                  focus="50% 52%"
+                  mask={MACRO_MASK}
+                  className="aspect-square w-64 sm:w-80"
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Her eyes */}
+        {/* Her eyes — many glimpses */}
         <div className="mt-28 flex flex-col items-center gap-6">
           <Label>Her eyes</Label>
           <EyeFrame
-            src={`${DIR}/manonty-eye-1.jpg`}
+            src={`${DIR}/manonty-eye-4.jpg`}
             alt="A close-up of Manonty's eye."
-            focus="46% 38%"
+            focus="50% 50%"
             className="aspect-[3/2] w-full max-w-2xl"
           />
-          <div className="flex w-full max-w-2xl flex-col items-center justify-center gap-6 sm:flex-row">
-            <EyeFrame
-              src={`${DIR}/manonty-eye-2.jpg`}
-              alt="Another close-up of Manonty's eye."
-              focus="50% 50%"
-              className="aspect-[3/2] w-full max-w-xs opacity-90"
-            />
-            <EyeFrame
-              src={`${DIR}/manonty-eye-3.jpg`}
-              alt="Another close-up of Manonty's eye."
-              focus="46% 46%"
-              className="aspect-[3/2] w-full max-w-xs opacity-90"
-            />
+          <div className="flex w-full max-w-4xl flex-wrap items-center justify-center gap-5">
+            {HER_EYES.map((e) => (
+              <EyeFrame
+                key={e.src}
+                src={`${DIR}/${e.src}`}
+                alt="A close-up of Manonty's eye."
+                focus={e.focus}
+                className="aspect-[3/2] w-40 opacity-90 sm:w-44"
+              />
+            ))}
           </div>
         </div>
 
@@ -155,10 +168,11 @@ export function EyesChapter() {
               className="w-1/2"
             >
               <EyeFrame
-                src={`${DIR}/boody-eye-1.jpg`}
+                src={`${DIR}/eye-macro-1.jpg`}
                 alt="Boody's eye."
-                focus="60% 48%"
+                focus="60% 50%"
                 zoom={false}
+                mask={MACRO_MASK}
                 className="aspect-square w-full"
               />
             </motion.div>
@@ -170,14 +184,13 @@ export function EyesChapter() {
               className="w-1/2"
             >
               <EyeFrame
-                src={`${DIR}/manonty-eye-1.jpg`}
+                src={`${DIR}/manonty-eye-4.jpg`}
                 alt="Manonty's eye."
-                focus="34% 38%"
+                focus="40% 50%"
                 zoom={false}
                 className="aspect-square w-full"
               />
             </motion.div>
-            {/* meeting seam of light */}
             <motion.div
               aria-hidden
               initial={{ scaleY: 0, opacity: 0 }}
@@ -192,9 +205,7 @@ export function EyesChapter() {
         {/* Ending quote */}
         <Reveal>
           <blockquote className="mx-auto mt-24 max-w-2xl text-center">
-            <p className="font-serif text-2xl italic text-warm-100/70 sm:text-3xl">
-              In your eyes…
-            </p>
+            <p className="font-serif text-2xl italic text-warm-100/70 sm:text-3xl">In your eyes…</p>
             <p className="text-gradient-blue mt-2 font-display text-3xl font-semibold sm:text-5xl">
               I found the place I never knew I was searching for.
             </p>

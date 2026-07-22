@@ -21,6 +21,9 @@ This is not a photo gallery. It's a museum of one love story.
   first gold gift: dark gold-lit stage, glass reflection, slow zoom, and gold dust.
 - **Hand in Hand** — an intimate chapter about connection (matching bracelets,
   two spoons that make a heart): warm-lit cinematic frames, slow zoom, reflections.
+- **Before We Knew Each Other** — a nostalgic, vintage-film Childhood opening:
+  sepia photo prints, golden light, dust, handwritten type, and a symbolic
+  convergence of two childhoods (Boody → Manonty → destiny).
 - **Special chapters** for Manonty (a calm, white-and-blue medical world with a
   living heartbeat) and Boody (a self-drawing architectural blueprint).
 - **“Together”** — a GSAP scroll sequence where a blueprint dissolves into a

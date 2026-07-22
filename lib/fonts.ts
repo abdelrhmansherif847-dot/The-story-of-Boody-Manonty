@@ -4,6 +4,7 @@ import {
   Inter,
   El_Messiri,
   Tajawal,
+  Dancing_Script,
 } from "next/font/google";
 
 /**
@@ -51,10 +52,19 @@ export const fontArabic = Tajawal({
   display: "swap",
 });
 
+/** A warm, handwritten voice — used for the nostalgic Childhood chapter. */
+export const fontScript = Dancing_Script({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-script",
+  display: "swap",
+});
+
 export const fontVariables = [
   fontDisplay.variable,
   fontSerif.variable,
   fontSans.variable,
   fontArabicDisplay.variable,
   fontArabic.variable,
+  fontScript.variable,
 ].join(" ");

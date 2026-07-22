@@ -23,6 +23,7 @@ import { EyesChapter } from "@/components/sections/eyes";
 import { GiftsSection } from "@/components/sections/gifts";
 import { GoldenPromise } from "@/components/sections/golden-promise";
 import { HandInHand } from "@/components/sections/hand-in-hand";
+import { ChildhoodChapter } from "@/components/sections/childhood";
 import { DoctorChapter } from "@/components/sections/doctor";
 import { EngineerChapter } from "@/components/sections/engineer";
 import { TogetherSection } from "@/components/sections/together";
@@ -99,7 +100,7 @@ export function StoryExperience() {
             <Prelude />
             <LoveCounter />
 
-            <Standard id="childhood" />
+            <ChildhoodChapter />
             <EyesChapter />
             <Standard id="beginning" />
             <Standard id="first-picture" />

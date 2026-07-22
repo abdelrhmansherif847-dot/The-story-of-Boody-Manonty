@@ -164,6 +164,7 @@ const config: Config = {
         sans: ["var(--font-sans)", "Inter", "system-ui", "sans-serif"],
         arabic: ["var(--font-arabic)", "Tajawal", "sans-serif"],
         "arabic-display": ["var(--font-arabic-display)", "El Messiri", "serif"],
+        script: ["var(--font-script)", "Dancing Script", "cursive"],
       },
       letterSpacing: {
         luxe: "0.28em",

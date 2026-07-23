@@ -31,6 +31,26 @@ const orderedChapters: Omit<Chapter, "index">[] = [
     inMenu: true,
   },
   {
+    id: "before-us",
+    emoji: "🕊️",
+    icon: "Contact2",
+    eyebrow: "The people behind the story",
+    title: "Before We Became Us",
+    subtitle: "Two different stories. Two different dreams.",
+    narrative: [
+      "Before there was an 'us', there were two whole people — each with a dream, a personality, a path.",
+      "Two different stories. Two different dreams. One beautiful destiny.",
+      "We were complete on our own — but together, we became something even more beautiful.",
+    ],
+    mood: {
+      gradient: "from-black via-navy-950 to-black",
+      accent: "#cfa24e",
+      scheme: "dark",
+    },
+    slots: 0,
+    inMenu: true,
+  },
+  {
     id: "eyes",
     emoji: "👀",
     icon: "Eye",

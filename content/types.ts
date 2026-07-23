@@ -20,6 +20,7 @@ export type MediaItem = {
 
 export type ChapterId =
   | "childhood"
+  | "before-us"
   | "eyes"
   | "beginning"
   | "first-picture"

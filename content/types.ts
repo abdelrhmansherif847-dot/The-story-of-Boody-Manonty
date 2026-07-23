@@ -30,6 +30,7 @@ export type ChapterId =
   | "gifts"
   | "golden-promise"
   | "love"
+  | "journey-together"
   | "doctor"
   | "engineer"
   | "together"

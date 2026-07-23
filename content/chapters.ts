@@ -227,6 +227,26 @@ const orderedChapters: Omit<Chapter, "index">[] = [
     inMenu: true,
   },
   {
+    id: "journey-together",
+    emoji: "💞",
+    icon: "Images",
+    eyebrow: "The heart of it all",
+    title: "Our Journey Together",
+    subtitle: "Some people measure time in years. We measure it in moments.",
+    narrative: [
+      "Every photo here is a real moment we shared — laughter, peace, love.",
+      "Not a gallery. A memory book, one page at a time.",
+      "Every picture tells a story. Together, they became our forever.",
+    ],
+    mood: {
+      gradient: "from-warm-100 via-warm-50 to-gold-100",
+      accent: "#cfa24e",
+      scheme: "light",
+    },
+    slots: 0,
+    inMenu: true,
+  },
+  {
     id: "doctor",
     emoji: "👩🏻‍⚕️",
     icon: "Stethoscope",

@@ -104,6 +104,9 @@ export function BeforeUsChapter() {
               { src: "boody-2.jpg", w: 960, h: 1280 },
               { src: "boody-3.jpg", w: 1125, h: 1500 },
               { src: "boody-4.jpg", w: 960, h: 1280 },
+              { src: "boody-7.jpg", w: 1125, h: 1500 },
+              { src: "boody-5.jpg", w: 1125, h: 1500 },
+              { src: "boody-6.jpg", w: 960, h: 1280 },
             ].map((p, i) => (
               <Reveal key={p.src} delay={i * 0.08}>
                 <Tile {...p} alt="A portrait of Boody." />
@@ -149,7 +152,9 @@ export function BeforeUsChapter() {
             {[
               { src: "manonty-1.jpg", w: 1600, h: 900 },
               { src: "manonty-5.jpg", w: 844, h: 1500 },
+              { src: "manonty-6.jpg", w: 1500, h: 844 },
               { src: "manonty-2.jpg", w: 1600, h: 1188 },
+              { src: "manonty-7.jpg", w: 1280, h: 888 },
               { src: "manonty-4.jpg", w: 1600, h: 1083 },
             ].map((p, i) => (
               <Reveal key={p.src} delay={i * 0.06} className="mb-4 block break-inside-avoid sm:mb-6">

@@ -12,28 +12,11 @@ import { SplitText } from "@/components/effects/split-text";
 const chapter = chapterById["before-us"];
 const DIR = "/media/before-us";
 
-/** A portrait with a slow, continuous ken-burns move, in a gold-lined frame. */
-function Portrait({
-  src,
-  alt,
-  ratio,
-  focus = "50% 40%",
-  pan = 1,
-  className,
-}: {
-  src: string;
-  alt: string;
-  ratio: string;
-  focus?: string;
-  pan?: number;
-  className?: string;
-}) {
+/** A hero portrait with a slow, continuous ken-burns move, in a gold frame. */
+function Portrait({ src, alt, ratio, focus = "50% 40%", pan = 1, className }: { src: string; alt: string; ratio: string; focus?: string; pan?: number; className?: string }) {
   const reduced = usePrefersReducedMotion();
   return (
-    <div
-      className={cn("relative overflow-hidden rounded-[1.5rem] shadow-luxe ring-1 ring-gold-300/30", className)}
-      style={{ aspectRatio: ratio }}
-    >
+    <div className={cn("relative overflow-hidden rounded-[1.5rem] shadow-luxe ring-1 ring-gold-300/30", className)} style={{ aspectRatio: ratio }}>
       <motion.div
         className="absolute inset-0"
         animate={reduced ? {} : { scale: [1.05, 1.12], x: ["0%", `${pan * -3}%`], y: ["0%", "-2%"] }}
@@ -44,6 +27,17 @@ function Portrait({
       <div className="pointer-events-none absolute inset-0 rounded-[1.5rem] ring-1 ring-inset ring-gold-100/15" />
       <div className="pointer-events-none absolute inset-0 rounded-[1.5rem] bg-gradient-to-t from-black/45 via-transparent to-transparent" />
     </div>
+  );
+}
+
+/** A gallery portrait tile — gold-lined, gentle hover zoom. */
+function Tile({ src, w, h, alt, className }: { src: string; w: number; h: number; alt: string; className?: string }) {
+  return (
+    <figure className={cn("group relative overflow-hidden rounded-2xl shadow-luxe ring-1 ring-gold-300/25", className)}>
+      <Image src={`${DIR}/${src}`} alt={alt} width={w} height={h} sizes="(max-width: 640px) 46vw, 22rem" className="block h-auto w-full transition-transform duration-[1200ms] ease-luxe group-hover:scale-[1.05]" />
+      <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-gold-100/10" />
+      <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-t from-black/40 to-transparent" />
+    </figure>
   );
 }
 
@@ -62,10 +56,7 @@ function NameCard({ name, role, line }: { name: string; role: string; line: stri
 export function BeforeUsChapter() {
   return (
     <section id={chapter.id} className="relative overflow-hidden bg-black text-warm-50">
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(80,58,20,0.35),#000_70%)]"
-      />
+      <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(80,58,20,0.35),#000_70%)]" />
       <div aria-hidden className="absolute inset-0 -z-10 grain-overlay opacity-25" />
       <Particles quantity={30} color="207, 162, 78" maxRadius={2.2} />
 
@@ -96,13 +87,7 @@ export function BeforeUsChapter() {
         <div className="mt-20 md:mt-28">
           <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
             <Reveal direction="right">
-              <Portrait
-                src={`${DIR}/boody-1.jpg`}
-                alt="A portrait of Boody."
-                ratio="960 / 1280"
-                focus="50% 38%"
-                className="mx-auto w-full max-w-sm"
-              />
+              <Portrait src={`${DIR}/boody-1.jpg`} alt="A portrait of Boody." ratio="960 / 1280" focus="50% 38%" className="mx-auto w-full max-w-sm" />
             </Reveal>
             <Reveal direction="left" delay={0.1}>
               <NameCard
@@ -111,6 +96,19 @@ export function BeforeUsChapter() {
                 line="A builder of bridges and dreams — quietly certain the most beautiful thing was still ahead."
               />
             </Reveal>
+          </div>
+
+          {/* his gallery */}
+          <div className="mx-auto mt-8 grid max-w-3xl grid-cols-3 gap-4 sm:gap-6">
+            {[
+              { src: "boody-2.jpg", w: 960, h: 1280 },
+              { src: "boody-3.jpg", w: 1125, h: 1500 },
+              { src: "boody-4.jpg", w: 960, h: 1280 },
+            ].map((p, i) => (
+              <Reveal key={p.src} delay={i * 0.08}>
+                <Tile {...p} alt="A portrait of Boody." />
+              </Reveal>
+            ))}
           </div>
         </div>
 
@@ -135,14 +133,7 @@ export function BeforeUsChapter() {
         <div>
           <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
             <Reveal direction="left" className="lg:order-2">
-              <Portrait
-                src={`${DIR}/manonty-3.jpg`}
-                alt="A portrait of Manonty."
-                ratio="1500 / 876"
-                focus="60% 42%"
-                pan={-1}
-                className="mx-auto w-full max-w-lg"
-              />
+              <Portrait src={`${DIR}/manonty-3.jpg`} alt="A portrait of Manonty." ratio="1500 / 876" focus="60% 42%" pan={-1} className="mx-auto w-full max-w-lg" />
             </Reveal>
             <Reveal direction="right" delay={0.1} className="lg:order-1">
               <NameCard
@@ -153,13 +144,18 @@ export function BeforeUsChapter() {
             </Reveal>
           </div>
 
-          <div className="mx-auto mt-8 grid max-w-4xl gap-6 sm:grid-cols-2 sm:gap-8">
-            <Reveal direction="right">
-              <Portrait src={`${DIR}/manonty-1.jpg`} alt="A portrait of Manonty." ratio="1600 / 900" focus="55% 35%" />
-            </Reveal>
-            <Reveal direction="left" delay={0.1}>
-              <Portrait src={`${DIR}/manonty-2.jpg`} alt="A portrait of Manonty." ratio="1600 / 1188" focus="45% 30%" pan={-1} />
-            </Reveal>
+          {/* her gallery */}
+          <div className="mx-auto mt-8 max-w-4xl columns-2 gap-4 sm:columns-2 sm:gap-6 lg:columns-3">
+            {[
+              { src: "manonty-1.jpg", w: 1600, h: 900 },
+              { src: "manonty-5.jpg", w: 844, h: 1500 },
+              { src: "manonty-2.jpg", w: 1600, h: 1188 },
+              { src: "manonty-4.jpg", w: 1600, h: 1083 },
+            ].map((p, i) => (
+              <Reveal key={p.src} delay={i * 0.06} className="mb-4 block break-inside-avoid sm:mb-6">
+                <Tile {...p} alt="A portrait of Manonty." />
+              </Reveal>
+            ))}
           </div>
         </div>
 
